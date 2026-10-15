@@ -106,9 +106,9 @@
     if (filter === "all" || filter === "women") grid.append(panel("Kvinnonamn", women));
     if (filter === "all" || filter === "men") grid.append(panel("Mansnamn", men));
     if (filter === "all" || other.length && filter !== "women" && filter !== "men") grid.append(panel("Övriga namn", other));
-    content.className = "";
-    content.replaceWith(grid);
+    const currentContent = document.getElementById("content");
     grid.id = "content";
+    currentContent.replaceWith(grid);
     summary.textContent = matches.length + (matches.length === 1 ? " namn" : " namn") + (query ? " matchar sökningen" : " i listan");
   }
 
