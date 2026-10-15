@@ -3,133 +3,235 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f7f2">
-  <meta name="description" content="En alfabetisk lista med svenska förnamn, sorterade efter vanliga könsassociationer.">
-  <title>Svenska namn — namnlistan</title>
+  <meta name="theme-color" content="#f4f1ea">
+  <meta name="description" content="Utforska svenska förnamn med sökning och alfabetisk sortering.">
+  <title>Namnverket — Svenska namn</title>
   <style>
-    :root { color-scheme: light; --ink:#20251f; --muted:#687067; --paper:#f7f7f2; --card:#fff; --line:#e4e7df; --green:#315b45; --soft:#e8efe8; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    .wrap { width:min(100% - 32px, 980px); margin:0 auto; padding:54px 0 64px; }
-    .eyebrow { color:var(--green); font-size:.78rem; font-weight:750; letter-spacing:.14em; text-transform:uppercase; }
-    h1 { margin:12px 0 10px; font-size:clamp(2.3rem,7vw,4.6rem); line-height:1.02; letter-spacing:-.055em; }
-    .intro { max-width:600px; color:var(--muted); font-size:1.05rem; line-height:1.65; margin:0; }
-    .toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:30px 0 20px; }
-    .tabs { display:flex; flex-wrap:wrap; gap:6px; padding:5px; background:#eceee8; border-radius:14px; }
-    button { border:0; border-radius:10px; padding:10px 15px; color:#4f584f; background:transparent; font:inherit; font-weight:650; cursor:pointer; }
-    button[aria-pressed="true"] { background:var(--card); color:var(--ink); box-shadow:0 1px 4px #1d2b1d12; }
-    .search { flex:1 1 210px; min-width:180px; padding:13px 15px; border:1px solid var(--line); border-radius:12px; background:var(--card); font:inherit; outline-color:var(--green); }
-    .summary { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:0 0 14px; color:var(--muted); font-size:.9rem; }
-    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-    .panel { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:22px; min-width:0; }
-    .panel-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:15px; }
-    h2 { font-size:1.08rem; margin:0; }
-    .count { display:inline-grid; place-items:center; min-width:30px; height:30px; padding:0 8px; border-radius:10px; background:var(--soft); color:var(--green); font-size:.85rem; font-weight:750; }
-    ul { list-style:none; padding:0; margin:0; columns:2; column-gap:16px; }
-    li { break-inside:avoid; padding:7px 0; border-bottom:1px solid #f0f1ed; font-size:.96rem; }
-    .empty { color:var(--muted); padding:12px 0; }
-    .note { color:var(--muted); font-size:.82rem; line-height:1.6; margin:20px 2px 0; }
-    .status { padding:18px; background:var(--card); border:1px solid var(--line); border-radius:14px; color:var(--muted); }
-    footer { margin-top:34px; color:var(--muted); font-size:.82rem; }
-    @media (max-width:760px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .wrap { padding-top:36px; } }
-    @media (max-width:520px) { .grid { grid-template-columns:1fr; } .panel { padding:19px; } ul { columns:2; } }
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea; --paper: #fffdf8; --ink: #222b25; --muted: #71786e;
+      --line: #e7e2d8; --green: #234d3b; --green-2: #dce9df;
+      --rose: #f4e3df; --gold: #e8bd70; --shadow: 0 18px 55px #24392b0d;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family: "Avenir Next", Avenir, "Segoe UI", ui-sans-serif, system-ui, sans-serif; }
+    a { color:inherit; }
+    .site { width:min(1120px, calc(100% - 40px)); margin:0 auto; padding:24px 0 34px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:7px 0 25px; }
+    .brand { display:flex; align-items:center; gap:11px; font-size:1.02rem; font-weight:800; letter-spacing:-.035em; }
+    .brand-mark { display:grid; place-items:center; width:39px; height:39px; border-radius:13px; color:#fffdf8; background:var(--green); font-family:Georgia,serif; font-size:1.35rem; }
+    .nav-note { color:var(--muted); font-size:.82rem; }
+    .hero { position:relative; overflow:hidden; padding:clamp(30px, 6vw, 70px); border-radius:30px; background:var(--green); color:#fffdf8; box-shadow:var(--shadow); }
+    .hero:after { content:"Å"; position:absolute; right:5%; top:-39%; color:#ffffff0b; font-family:Georgia,serif; font-size:clamp(17rem,35vw,29rem); line-height:1; pointer-events:none; }
+    .hero-inner { position:relative; z-index:1; max-width:730px; }
+    .eyebrow { display:flex; align-items:center; gap:9px; color:#d3e2d6; font-size:.75rem; font-weight:750; letter-spacing:.17em; text-transform:uppercase; }
+    .eyebrow:before { content:""; width:24px; height:1px; background:var(--gold); }
+    h1 { max-width:720px; margin:22px 0 17px; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3.1rem,8vw,6.5rem); font-weight:500; letter-spacing:-.065em; line-height:.96; }
+    h1 em { color:#e9c98e; font-weight:400; }
+    .hero p { max-width:560px; margin:0; color:#e0e9e0; font-size:clamp(1rem,2vw,1.12rem); line-height:1.75; }
+    .hero-stats { display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
+    .stat { display:flex; align-items:center; gap:8px; padding:9px 13px; border:1px solid #ffffff25; border-radius:100px; color:#f5f4ec; font-size:.83rem; }
+    .stat strong { color:#f1d49b; }
+    .explorer { margin-top:27px; padding:clamp(18px,3vw,30px); border:1px solid var(--line); border-radius:25px; background:var(--paper); box-shadow:var(--shadow); }
+    .explorer-top { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:22px; }
+    .section-kicker { margin:0 0 7px; color:var(--muted); font-size:.73rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    h2 { margin:0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(1.8rem,4vw,2.6rem); font-weight:500; letter-spacing:-.045em; }
+    .alphabet-note { color:var(--muted); font-size:.83rem; white-space:nowrap; }
+    .controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
+    .tabs { display:flex; flex-wrap:wrap; gap:5px; padding:5px; border:1px solid var(--line); border-radius:15px; background:#f3f0e9; }
+    button, input { font:inherit; }
+    .tab { display:flex; align-items:center; gap:8px; padding:11px 14px; border:0; border-radius:10px; color:#6d746a; background:transparent; font-size:.88rem; font-weight:750; cursor:pointer; transition:background .18s, color .18s, transform .18s; }
+    .tab:hover { color:var(--ink); }
+    .tab[aria-pressed="true"] { color:#fffdf8; background:var(--green); box-shadow:0 4px 12px #234d3b24; }
+    .tab-count { font-size:.73rem; opacity:.78; }
+    .search-wrap { display:flex; align-items:center; flex:1 1 235px; min-width:190px; gap:10px; padding:0 14px; border:1px solid var(--line); border-radius:13px; background:#fff; }
+    .search-wrap svg { flex:none; color:#7d857a; }
+    .search { width:100%; min-width:0; padding:13px 0; border:0; outline:0; color:var(--ink); background:transparent; font-size:.92rem; }
+    .search::placeholder { color:#9a9e94; }
+    .search-wrap:focus-within { outline:3px solid #234d3b18; border-color:#8ca594; }
+    .result-line { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:25px 2px 13px; color:var(--muted); font-size:.84rem; }
+    .result-line strong { color:var(--ink); }
+    .live-dot { display:inline-block; width:7px; height:7px; margin-right:7px; border-radius:50%; background:#679875; vertical-align:middle; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .panel { min-width:0; padding:20px; border:1px solid var(--line); border-radius:19px; background:#fff; animation:rise .3s ease both; }
+    .panel:nth-child(2) { animation-delay:.04s; }
+    .panel:nth-child(3) { animation-delay:.08s; }
+    .panel-head { display:flex; align-items:center; gap:10px; margin-bottom:15px; }
+    .panel-icon { display:grid; place-items:center; flex:none; width:37px; height:37px; border-radius:12px; font-size:1rem; }
+    .panel[data-kind="women"] .panel-icon { background:var(--rose); }
+    .panel[data-kind="men"] .panel-icon { background:var(--green-2); }
+    .panel[data-kind="other"] .panel-icon { background:#f5ecd9; }
+    .panel-title { flex:1; min-width:0; }
+    .panel-title h3 { margin:0; font-size:.98rem; font-weight:800; letter-spacing:-.025em; }
+    .panel-title p { margin:3px 0 0; color:var(--muted); font-size:.76rem; }
+    .count { display:grid; place-items:center; min-width:29px; height:29px; padding:0 7px; border-radius:9px; background:#f5f3ed; color:#545e53; font-size:.78rem; font-weight:800; }
+    .name-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 12px; margin:0; padding:0; list-style:none; }
+    .name-list li { min-width:0; border-bottom:1px solid #f0eee8; }
+    .name-list li span { display:block; overflow:hidden; padding:9px 0; color:#3e473e; font-size:.9rem; text-overflow:ellipsis; white-space:nowrap; }
+    .empty { margin:0; padding:13px 0; color:var(--muted); font-size:.88rem; line-height:1.6; }
+    .status { padding:22px; border:1px solid var(--line); border-radius:16px; color:var(--muted); background:white; }
+    .footnote { display:flex; gap:13px; align-items:flex-start; margin:18px 3px 0; color:var(--muted); font-size:.79rem; line-height:1.7; }
+    .footnote span { color:var(--green); font-size:1rem; }
+    footer { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-top:26px; padding:20px 3px 0; border-top:1px solid #ded9cf; color:var(--muted); font-size:.78rem; }
+    footer a { color:var(--green); font-weight:750; text-decoration-thickness:1px; text-underline-offset:3px; }
+    @keyframes rise { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    @media (prefers-reduced-motion:reduce) { *, *:before, *:after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+    @media (max-width:760px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .panel:last-child:nth-child(odd) { grid-column:1/-1; } .nav-note { display:none; } }
+    @media (max-width:540px) { .site { width:calc(100% - 24px); padding-top:12px; } .nav { padding-bottom:15px; } .hero { border-radius:23px; padding:30px 23px; } .hero:after { right:-10%; top:-13%; font-size:15rem; } .hero-stats { gap:7px; } .stat { padding:8px 10px; font-size:.75rem; } .explorer { margin-top:14px; padding:17px 13px; border-radius:21px; } .explorer-top { align-items:flex-start; flex-direction:column; gap:8px; } .alphabet-note { white-space:normal; } .controls { align-items:stretch; flex-direction:column; } .tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); } .tab { justify-content:center; padding:10px 7px; gap:5px; font-size:.82rem; } .search-wrap { flex-basis:auto; } .grid { grid-template-columns:1fr; } .panel:last-child:nth-child(odd) { grid-column:auto; } .panel { padding:17px; } .name-list { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 9px; } .name-list li span { font-size:.86rem; } .result-line { margin-top:20px; } footer { align-items:flex-start; flex-direction:column; } }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="eyebrow">Namnlistan · från swenames.txt</div>
-    <h1>Svenska namn<span aria-hidden="true">.</span></h1>
-    <p class="intro">Bläddra bland namnen i listan, sorterade alfabetiskt efter vanliga associationer till kvinnliga och manliga förnamn.</p>
+  <main class="site">
+    <nav class="nav" aria-label="Huvudmeny">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><span>Namnverket</span></div>
+      <div class="nav-note">En liten samling svenska förnamn</div>
+    </nav>
 
-    <div class="toolbar" aria-label="Filtrera namn">
-      <div class="tabs" role="group" aria-label="Visa namn">
-        <button type="button" data-filter="all" aria-pressed="true">Alla</button>
-        <button type="button" data-filter="women" aria-pressed="false">Kvinnor</button>
-        <button type="button" data-filter="men" aria-pressed="false">Män</button>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">Upptäck namnlistan</div>
+        <h1>Namn med en<br><em>svensk känsla.</em></h1>
+        <p>En enkel plats att utforska klassiska och moderna förnamn. Sök bland namnen och upptäck dem i din egen takt.</p>
+        <div class="hero-stats">
+          <span class="stat"><strong id="total">50</strong> namn i samlingen</span>
+          <span class="stat">Sorterade från <strong>A till Ö</strong></span>
+        </div>
       </div>
-      <input class="search" id="search" type="search" placeholder="Sök efter ett namn…" aria-label="Sök efter ett namn">
-    </div>
+    </header>
 
-    <div class="summary"><span id="summary">Läser in namn…</span><span>Sorterade A–Ö</span></div>
-    <div id="content" class="status" role="status" aria-live="polite">Hämtar namnlistan…</div>
-    <p class="note">Indelningen bygger på vanliga svenska förnamnstraditioner och är inte en uppgift om en persons könsidentitet. Namn som inte säkert kan placeras visas under ”Övriga”.</p>
-    <footer>Namnen hämtas direkt från <a href="./swenames.txt">swenames.txt</a> i repot.</footer>
+    <section class="explorer" aria-labelledby="explorer-title">
+      <div class="explorer-top">
+        <div>
+          <p class="section-kicker">Namnarkivet</p>
+          <h2 id="explorer-title">Hitta ett namn</h2>
+        </div>
+        <span class="alphabet-note">Alfabetisk ordning · svensk sortering</span>
+      </div>
+
+      <div class="controls">
+        <div class="tabs" role="group" aria-label="Filtrera namn">
+          <button class="tab" type="button" data-filter="all" aria-pressed="true">Alla <span class="tab-count" id="all-count">50</span></button>
+          <button class="tab" type="button" data-filter="women" aria-pressed="false">Kvinnor <span class="tab-count" id="women-count">25</span></button>
+          <button class="tab" type="button" data-filter="men" aria-pressed="false">Män <span class="tab-count" id="men-count">25</span></button>
+        </div>
+        <label class="search-wrap">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.3 4.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <input class="search" id="search" type="search" placeholder="Sök bland namnen…" aria-label="Sök bland namnen">
+        </label>
+      </div>
+
+      <div class="result-line"><span id="summary"><span class="live-dot"></span>Läser in namnlistan…</span><span id="sort-label">Visar alla namn</span></div>
+      <div id="content" class="status" role="status" aria-live="polite">Hämtar namn från swenames.txt…</div>
+      <div class="footnote"><span aria-hidden="true">✳</span><div>Kategorierna visar vanliga associationer till svenska förnamn, inte en persons könsidentitet. Namn som inte säkert kan placeras i någon av grupperna visas under ”Övriga” när alla namn visas.</div></div>
+    </section>
+
+    <footer>
+      <span>© Namnverket · En liten namnsamling</span>
+      <span>Data hämtas från <a href="./swenames.txt">swenames.txt</a></span>
+    </footer>
   </main>
-<script>
-(() => {
-  const female = new Set("Agnes Alice Alma Anna Astrid Ebba Ella Elin Elsa Emma Eva Ida Ingrid Julia Karin Klara Lena Linnea Lovisa Maja Maria Olivia Sara Sofia Wilma".split(" "));
-  const male = new Set("Anders Axel Daniel David Emil Erik Filip Fredrik Gustav Henrik Johan Jonas Karl Lars Magnus Martin Mattias Mikael Nils Oskar Per Peter Simon Thomas Viktor".split(" "));
-  const collator = new Intl.Collator("sv", { sensitivity: "base" });
-  const content = document.getElementById("content");
-  const summary = document.getElementById("summary");
-  const search = document.getElementById("search");
-  let names = [];
-  let filter = "all";
 
-  function panel(title, items) {
-    const section = document.createElement("section");
-    section.className = "panel";
-    const head = document.createElement("div");
-    head.className = "panel-head";
-    const h = document.createElement("h2");
-    h.textContent = title;
-    const count = document.createElement("span");
-    count.className = "count";
-    count.textContent = items.length;
-    head.append(h, count);
-    section.append(head);
-    if (!items.length) {
-      const p = document.createElement("p");
-      p.className = "empty";
-      p.textContent = "Inga namn matchar sökningen.";
-      section.append(p);
+  <script>
+  (() => {
+    const female = new Set("Agnes Alice Alma Anna Astrid Ebba Ella Elin Elsa Emma Eva Ida Ingrid Julia Karin Klara Lena Linnea Lovisa Maja Maria Olivia Sara Sofia Wilma".split(" "));
+    const male = new Set("Anders Axel Daniel David Emil Erik Filip Fredrik Gustav Henrik Johan Jonas Karl Lars Magnus Martin Mattias Mikael Nils Oskar Per Peter Simon Thomas Viktor".split(" "));
+    const collator = new Intl.Collator("sv", { sensitivity: "base" });
+    const search = document.getElementById("search");
+    const summary = document.getElementById("summary");
+    const sortLabel = document.getElementById("sort-label");
+    let names = [];
+    let filter = "all";
+
+    function makePanel(title, subtitle, items, kind, icon) {
+      const section = document.createElement("section");
+      section.className = "panel";
+      section.dataset.kind = kind;
+      const head = document.createElement("div");
+      head.className = "panel-head";
+      const badge = document.createElement("span");
+      badge.className = "panel-icon";
+      badge.setAttribute("aria-hidden", "true");
+      badge.textContent = icon;
+      const titleBox = document.createElement("div");
+      titleBox.className = "panel-title";
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+      const sub = document.createElement("p");
+      sub.textContent = subtitle;
+      titleBox.append(heading, sub);
+      const count = document.createElement("span");
+      count.className = "count";
+      count.textContent = items.length;
+      count.setAttribute("aria-label", items.length + " namn");
+      head.append(badge, titleBox, count);
+      section.append(head);
+
+      if (!items.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "Inga namn matchar din sökning.";
+        section.append(empty);
+        return section;
+      }
+      const list = document.createElement("ul");
+      list.className = "name-list";
+      items.forEach(name => {
+        const item = document.createElement("li");
+        const label = document.createElement("span");
+        label.textContent = name;
+        item.append(label);
+        list.append(item);
+      });
+      section.append(list);
       return section;
     }
-    const list = document.createElement("ul");
-    items.forEach(name => {
-      const li = document.createElement("li");
-      li.textContent = name;
-      list.append(li);
+
+    function render() {
+      const query = search.value.trim().toLocaleLowerCase("sv");
+      const matches = names.filter(name => name.toLocaleLowerCase("sv").includes(query));
+      const women = matches.filter(name => female.has(name)).sort(collator.compare);
+      const men = matches.filter(name => male.has(name)).sort(collator.compare);
+      const other = matches.filter(name => !female.has(name) && !male.has(name)).sort(collator.compare);
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      grid.id = "content";
+
+      if (filter === "all" || filter === "women") grid.append(makePanel("Kvinnonamn", "Vanliga kvinnonamn", women, "women", "✿"));
+      if (filter === "all" || filter === "men") grid.append(makePanel("Mansnamn", "Vanliga mansnamn", men, "men", "✳"));
+      if (filter === "all" && other.length) grid.append(makePanel("Övriga", "Andra namn i listan", other, "other", "✧"));
+
+      const current = document.getElementById("content");
+      if (current) current.replaceWith(grid);
+      document.getElementById("total").textContent = names.length;
+      document.getElementById("all-count").textContent = names.length;
+      document.getElementById("women-count").textContent = names.filter(name => female.has(name)).length;
+      document.getElementById("men-count").textContent = names.filter(name => male.has(name)).length;
+      summary.innerHTML = '<span class="live-dot"></span>';
+      summary.append(document.createTextNode(matches.length + (query ? " träffar" : " namn")));
+      sortLabel.textContent = query ? 'Sökning: “' + search.value.trim() + '”' : (filter === "all" ? "Visar alla namn" : filter === "women" ? "Visar kvinnonamn" : "Visar mansnamn");
+    }
+
+    document.querySelectorAll("[data-filter]").forEach(button => {
+      button.addEventListener("click", () => {
+        filter = button.dataset.filter;
+        document.querySelectorAll("[data-filter]").forEach(tab => tab.setAttribute("aria-pressed", String(tab === button)));
+        render();
+      });
     });
-    section.append(list);
-    return section;
-  }
+    search.addEventListener("input", render);
 
-  function render() {
-    const query = search.value.trim().toLocaleLowerCase("sv");
-    const matches = names.filter(n => n.toLocaleLowerCase("sv").includes(query));
-    const women = matches.filter(n => female.has(n)).sort(collator.compare);
-    const men = matches.filter(n => male.has(n)).sort(collator.compare);
-    const other = matches.filter(n => !female.has(n) && !male.has(n)).sort(collator.compare);
-    const grid = document.createElement("div");
-    grid.className = "grid";
-    if (filter === "all" || filter === "women") grid.append(panel("Kvinnonamn", women));
-    if (filter === "all" || filter === "men") grid.append(panel("Mansnamn", men));
-    if (filter === "all" || other.length && filter !== "women" && filter !== "men") grid.append(panel("Övriga namn", other));
-    const currentContent = document.getElementById("content");
-    grid.id = "content";
-    currentContent.replaceWith(grid);
-    summary.textContent = matches.length + (matches.length === 1 ? " namn" : " namn") + (query ? " matchar sökningen" : " i listan");
-  }
-
-  document.querySelectorAll("[data-filter]").forEach(button => {
-    button.addEventListener("click", () => {
-      filter = button.dataset.filter;
-      document.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed", String(b === button)));
+    fetch("./swenames.txt").then(response => {
+      if (!response.ok) throw new Error("Kunde inte läsa namnfilen");
+      return response.text();
+    }).then(text => {
+      names = [...new Set(text.split(/\r?\n/).map(name => name.trim()).filter(Boolean))].sort(collator.compare);
       render();
+    }).catch(() => {
+      const content = document.getElementById("content");
+      content.textContent = "Kunde inte läsa swenames.txt. Kontrollera att filen finns i samma mapp och att webbplatsen öppnas via GitHub Pages eller en webbserver.";
+      document.getElementById("summary").textContent = "Namnlistan kunde inte laddas";
     });
-  });
-  search.addEventListener("input", render);
-  fetch("./swenames.txt").then(response => {
-    if (!response.ok) throw new Error("Kunde inte läsa swenames.txt");
-    return response.text();
-  }).then(text => {
-    names = [...new Set(text.split(/\r?\n/).map(n => n.trim()).filter(Boolean))].sort(collator.compare);
-    render();
-  }).catch(() => {
-    content.textContent = "Kunde inte läsa namnlistan. Kontrollera att swenames.txt finns bredvid index.html och att webbplatsen körs via en webbserver.";
-  });
-})();
-</script>
+  })();
+  </script>
 </body>
 </html>
